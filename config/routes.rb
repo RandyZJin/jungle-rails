@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  # get 'admin/categories'
-  # get 'admin/index'
-  # get 'admin/categories'
   root to: 'products#index'
 
   resources :products, only: [:index, :show]
