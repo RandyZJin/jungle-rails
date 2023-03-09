@@ -2,11 +2,8 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    # @line_item = LineItem.select(:product_id, :quantity, :item_price_cents, :total_price_cents, :'products.id', :'products.name', :'products.description', :'products.image').joins("JOIN products ON line_items.product_id = products.id").where("order_id = ?", params[:id])
     @line_item = Product.select(:'line_items.product_id', :'line_items.quantity', :'line_items.item_price_cents', :'line_items.total_price_cents',  :name, :description, :image).joins("JOIN line_items ON line_items.product_id = products.id").where("order_id = ?", params[:id])
-    
-    # @line_item = LineItem.select(:id, :order_id, :product_id, :quantity, :'products.id', :'products.name', :'products.description', :'products.image', :'products.price_cents').joins("JOIN products ON line_items.product_id = products.id").where("order_id = ?", params[:id])
-    # @line_item = Product.select(:id, :name, :description, :image, :price_cents).joins("JOIN line_items ON line_items.product_id = products.id").where("order_id = ?", params[:id])
+
   end
 
   def create
