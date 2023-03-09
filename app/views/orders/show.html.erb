@@ -2,12 +2,40 @@
 
   <header class="page-header">
     <h1>Order #<%= @order.id %></h1>
+    Your order was created at <%= @order.created_at %> by <%= @order.email %>
   </header>
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
-  </div>
+    You were charged <%= humanized_money_with_symbol @order.total_cents/100.0 %> for this order.
+    <br>
+    <div class="panel panel-default items">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @line_item.each do |item| %>
+          <%= render 'item', product_id: item.product_id, quantity: item.quantity, name: item.name, description: item.description, item_price_cents: item.item_price_cents, total_price_cents: item.total_price_cents %>
 
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+          <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL:
+          </th>
+          <th>
+            <%= humanized_money_with_symbol @order.total_cents/100.0 %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 
 </section>
