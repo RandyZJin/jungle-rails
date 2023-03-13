@@ -11,7 +11,6 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "bobbob"
       @user.save
 
-      puts @user.inspect
       expect(@user.id).to be_present
     end
 
@@ -23,7 +22,6 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "notbobbob"
       @user.save
 
-      puts @user.inspect
       expect(@user.id).to be_nil
     end
 
@@ -33,7 +31,6 @@ RSpec.describe User, type: :model do
       @user.email = "bob@bob.com"
       @user.save
 
-      puts @user.inspect
       expect(@user.id).to be_nil
     end
 
@@ -44,7 +41,6 @@ RSpec.describe User, type: :model do
       @user.password = "bobbob"
       @user.password_confirmation = "bobbob"
       @user.save
-      puts @user.inspect
 
       @user2 = User.new
       @user2.name = "Bob Buttons Jr"
@@ -63,7 +59,6 @@ RSpec.describe User, type: :model do
       @user.password = "bobbob"
       @user.password_confirmation = "bobbob"
       @user.save
-      puts @user.inspect
       expect(@user.id).to be_nil
     end
 
@@ -74,7 +69,6 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "bobbob"
       @user.save
 
-      puts @user.inspect
       expect(@user.id).to be_nil
     end
 
@@ -86,12 +80,44 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "bob"
       @user.save
 
-      puts @user.inspect
       expect(@user.id).to be_nil
     end
   end
 
   describe '.authenticate_with_credentials' do
-    # examples for this class method here
+    it 'should not authenticate properly if email and password matches' do
+      @user = User.new
+      @user.name = "Bob Buttons"
+      @user.email = "bob@bob.com"
+      @user.password = "bob123"
+      @user.password_confirmation = "bob123"
+      @user.save
+
+      expect(User.authenticate_with_credentials("bob@bob.com", "bob123")).to be_present
+    end
+
+    it 'should not authenticate properly if password does not match' do
+      @user = User.new
+      @user.name = "Bob Buttons"
+      @user.email = "bob@bob.com"
+      @user.password = "bob123"
+      @user.password_confirmation = "bob123"
+      @user.save
+
+      expect(User.authenticate_with_credentials("bob@bob.com", "bob444")).to be_nil
+    end
+
+    it 'should not authenticate properly if email does not match' do
+      @user = User.new
+      @user.name = "Bob Buttons"
+      @user.email = "bob@bob.com"
+      @user.password = "bob123"
+      @user.password_confirmation = "bob123"
+      @user.save
+
+      expect(User.authenticate_with_credentials("bob@bab.com", "bob123")).to be_nil
+    end
+
+
   end
 end

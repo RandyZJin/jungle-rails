@@ -1,5 +1,4 @@
 <h1>Signup!</h1>
-<%= User.authenticate_with_credentials("bob@bob.com", "bob")  %>
 <%= form_for :user, url: '/users' do |f| %>
 
   First Name: <%= f.text_field :first_name %> <br>

@@ -14,10 +14,10 @@ class User < ApplicationRecord
       if @user.authenticate(password)
         @user
       else 
-        false
+
       end
     else 
-      false
+
     end
   end
 end
