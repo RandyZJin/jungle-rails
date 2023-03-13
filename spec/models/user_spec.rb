@@ -49,7 +49,6 @@ RSpec.describe User, type: :model do
       @user2.password_confirmation = "bobagain"
       @user2.save
 
-      puts @user2.inspect
       expect(@user2.id).to be_nil
     end
 
@@ -85,7 +84,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '.authenticate_with_credentials' do
-    it 'should not authenticate properly if email and password matches' do
+    it 'should authenticate properly if email and password matches' do
       @user = User.new
       @user.name = "Bob Buttons"
       @user.email = "bob@bob.com"
@@ -116,6 +115,28 @@ RSpec.describe User, type: :model do
       @user.save
 
       expect(User.authenticate_with_credentials("bob@bab.com", "bob123")).to be_nil
+    end
+
+    it 'should authenticate properly if email contains too many spaces' do
+      @user = User.new
+      @user.name = "Bob Buttons"
+      @user.email = "bob@bob.com"
+      @user.password = "bob123"
+      @user.password_confirmation = "bob123"
+      @user.save
+
+      expect(User.authenticate_with_credentials("  bob@bob.com  ", "bob123")).to be_present
+    end
+
+    it 'should authenticate properly if email has incorrect casing' do
+      @user = User.new
+      @user.name = "Bob Buttons"
+      @user.email = "bob@bob.com"
+      @user.password = "bob123"
+      @user.password_confirmation = "bob123"
+      @user.save
+
+      expect(User.authenticate_with_credentials("bob@BOB.com", "bob123")).to be_present
     end
 
 

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     puts user_params["first_name"]+" " +user_params['last_name']
     user = User.new
     user.name = user_params["first_name"]+" " + user_params['last_name']
-    user.email = user_params["email"]
+    user.email = user_params["email"].strip.downcase
     user.password = user_params["password"]
     user.password_confirmation = user_params["password_confirmation"]
     if user.save
