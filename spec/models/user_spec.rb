@@ -7,8 +7,8 @@ RSpec.describe User, type: :model do
       @user = User.new
       @user.name = "Bob Buttons"
       @user.email = "bob@bob.com"
-      @user.password = "bob"
-      @user.password_confirmation = "bob"
+      @user.password = "bobbob"
+      @user.password_confirmation = "bobbob"
       @user.save
 
       puts @user.inspect
@@ -19,8 +19,8 @@ RSpec.describe User, type: :model do
       @user = User.new
       @user.name = "Bob Buttons"
       @user.email = "bob@bob.com"
-      @user.password = "bob"
-      @user.password_confirmation = "notbob"
+      @user.password = "bobbob"
+      @user.password_confirmation = "notbobbob"
       @user.save
 
       puts @user.inspect
@@ -41,8 +41,8 @@ RSpec.describe User, type: :model do
       @user = User.new
       @user.name = "Bob Buttons"
       @user.email = "bob@bob.com"
-      @user.password = "bob"
-      @user.password_confirmation = "bob"
+      @user.password = "bobbob"
+      @user.password_confirmation = "bobbob"
       @user.save
       puts @user.inspect
 
@@ -60,15 +60,27 @@ RSpec.describe User, type: :model do
     it 'should not save properly if email is not present' do
       @user = User.new
       @user.name = "Bob Buttons"
-      @user.password = "bob"
-      @user.password_confirmation = "bob"
+      @user.password = "bobbob"
+      @user.password_confirmation = "bobbob"
       @user.save
       puts @user.inspect
       expect(@user.id).to be_nil
     end
 
-    it 'should save properly if name is not present' do
+    it 'should not save properly if name is not present' do
       @user = User.new
+      @user.email = "bob@bob.com"
+      @user.password = "bobbob"
+      @user.password_confirmation = "bobbob"
+      @user.save
+
+      puts @user.inspect
+      expect(@user.id).to be_nil
+    end
+
+    it 'should not save properly if password is too short' do
+      @user = User.new
+      @user.name = "Bob Buttons"
       @user.email = "bob@bob.com"
       @user.password = "bob"
       @user.password_confirmation = "bob"
