@@ -2,6 +2,15 @@
 
 A mini e-commerce application built with Rails 6.1 for purposes of teaching Rails by example.
 
+## Final Product
+
+!["screenshot of catalogue"](https://github.com/SymphonicRain/Jungler/blob/master/docs/Catalogue.JPG)
+!["screenshot of sign-up page"](https://github.com/SymphonicRain/Jungler/blob/master/docs/Signup.JPG)
+!["screenshot of order details"](https://github.com/SymphonicRain/Jungler/blob/master/docs/Order.JPG)
+!["screenshot of cart"](https://github.com/SymphonicRain/Jungler/blob/master/docs/Cart.JPG)
+!["screenshot of checkout popup"](https://github.com/SymphonicRain/Jungler/blob/master/docs/Cart2.JPG)
+!["screenshot of admin add product"](https://github.com/SymphonicRain/Jungler/blob/master/docs/AddProduct.JPG)
+
 ## Setup
 
 1. Run `bundle install` to install dependencies
